@@ -15,16 +15,28 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "vista-eas"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes"
+        }
+      },
+      "package": "com.harris_samuel.vistatravel"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "307ea7f0-62b5-41f7-95fd-2c20a4453009"
+      }
     }
   }
 }

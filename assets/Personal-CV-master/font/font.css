@@ -1,0 +1,14 @@
+@font-face{
+	font-family:"Qlassik";
+	src:url("../font/Qlassik.eot") format("eot"),
+	url("../font/Qlassik.woff") format("woff"),
+	url("../font/Qlassik.ttf") format("truetype"),
+	url("../font/Qlassik.svg#Qlassik") format("svg");
+}
+@font-face{
+	font-family:"Spirax";
+	src:url("../font/Spirax.eot") format("eot"),
+	url("../font/Spirax.woff") format("woff"),
+	url("../font/Spirax.ttf") format("truetype"),
+	url("../font/Spirax.svg#Spirax") format("svg");
+}

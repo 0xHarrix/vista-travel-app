@@ -1,0 +1,775 @@
+/* index.html area */
+/*background image aria */
+#bg_image {
+    background: url(../images/web-design-bg.jpg) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+}
+
+/* background image End */
+/* benar image aria */
+#baner_image_edit {
+    padding-bottom: 5rem;
+}
+
+#baner_image_edit img {
+    width: 100%;
+}
+
+/* benar image aria*/
+/* Hello Edit aria  */
+#hellow_edit {
+    margin-top: 2.5rem;
+}
+
+#hellow_edit .row .col-3 hr {
+    background-color: #FB0480;
+}
+
+#hellow_edit .row .col-9 h6 {
+    margin-top: 5px;
+}
+
+/* Hello Edit aria end */
+/* introduce Aria  */
+#header_introduce {
+    margin-top: 1rem;
+}
+
+#header_introduce p {
+    font-size: 14px;
+    margin-bottom: .5rem !important;
+}
+
+#header_introduce h6 {
+    font-weight: 500;
+    margin-bottom: .1rem !important;
+}
+
+#header_introduce span {
+    color: #FB0480 !important;
+}
+
+#header_introduce .btn {
+    padding: .375rem 2rem !important;
+    border-radius: 0rem !important;
+}
+
+#header_introduce .btn-danger {
+    border-color: #FB0480 !important;
+    background-color: #FB0480 !important;
+    transition: .5s all ease;
+}
+
+#header_introduce .btn-danger:hover {
+    background-color: transparent !important;
+    color: #000 !important;
+}
+
+/* introduce Aria  end*/
+/* modal area */
+.logeffect {}
+
+.outerborimg {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.logeffect img {
+    width: 6rem;
+    display: block;
+    margin: auto;
+    border: 5px solid #d2d2d2;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px 1px grey;
+}
+
+.logeffect input {
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding: .4rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+/* modal area end*/
+/* index.html area End */
+/* Heading with navigation Aria */
+#fSection_bg_image {
+    background: url(../images/bannerRakib.png) no-repeat;
+    height: 670px;
+    background-position: center right;
+    background-size: cover;
+
+}
+
+    {
+    background-color: #4f5b98 !important;
+}
+
+#p_navEdit {
+    padding: 0 1rem;
+}
+
+#p_navEdit .navbar-brand {
+    padding: 0 0;
+}
+
+#p_navEdit a.navbar-brand {
+    font-family: Spirax;
+    color: #fff;
+}
+
+#p_navEdit a.navbar-brand span {
+    font-family: Spirax;
+    font-size: 55px;
+    color: #3a3737;
+    text-shadow: 2px 2px 10px #8eff7a;
+    font-weight: 900;
+    animation-name: Panimatio;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes Panimatio {
+    0% {
+        text-shadow: 2px 2px 10px #8eff7a;
+    }
+
+    25% {
+        text-shadow: 2px 2px 10px rgb(255, 169, 169);
+    }
+
+    50% {
+        text-shadow: 2px 2px 10pxfirebrick;
+    }
+
+    75% {
+        text-shadow: 2px 2px 10px yellow;
+    }
+
+    100% {
+        text-shadow: 2px 2px 10px #fff;
+    }
+}
+
+#navbarNav li {
+    padding: 0 .4rem;
+}
+
+#navbarNav li a {
+    display: block;
+    color: #fff;
+    font-family: Qlassik;
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: #fff;
+    padding: 0 .85rem;
+    border-radius: 5px;
+}
+
+#fSection_bg_image .container #nameRelated {
+    margin-top: 12rem;
+}
+
+
+#fSection_bg_image .container #nameRelated h2 {
+    font-family: Qlassik;
+    font-size: 60px;
+    color: #fff;
+}
+
+#fSection_bg_image .container #nameRelated h3 {
+    font-family: Qlassik;
+    font-size: 50px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+/* End Heading with navigation Aria */
+/* About me Aria Start Aria Start  */
+#aboutMe_heading {
+    padding-top: 5.5rem;
+}
+
+#aboutMe_heading p {
+    display: inline-block;
+    font-family: Qlassik;
+    font-size: 1.5rem;
+    margin: 0 0;
+    letter-spacing: 1.5px;
+    border-right: 1px solid #ff7806;
+    padding-right: 10px;
+    color: #222;
+}
+
+#aboutMe_heading h2 {
+    font-family: Qlassik;
+    letter-spacing: 1px;
+    padding-left: 1.5rem;
+    color: #222;
+    font-size: 2.9rem;
+    font-weight: 600;
+}
+
+#aboutMe_skillSite .row .col-12 .nav {
+    border-bottom: none;
+}
+
+#myTab .nav-item {
+    padding: 0 2px !important;
+}
+
+#myTab li a.nav-link {
+    padding: 1.1rem 1rem;
+    font-family: Qlassik;
+    font-size: 1.2rem;
+    color: #fff;
+    border-radius: 0;
+}
+
+#myTab li:nth-child(1) a.nav-link {
+    background-color: #58c56f;
+    animation-name: nl1;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes nl1 {
+    0% {
+        background-color: #58c56f;
+    }
+
+    25% {
+        background-color: #ff5d8f;
+    }
+
+    50% {
+        background-color: #338ad1;
+    }
+
+    75% {
+        background-color: #ffc400;
+    }
+}
+
+#myTab li:nth-child(2) a.nav-link {
+    background-color: #ffc400;
+    animation-name: nl2;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes nl2 {
+    0% {
+        background-color: #ffc400;
+    }
+
+    25% {
+        background-color: #338ad1;
+    }
+
+    50% {
+        background-color: #ff5d8f;
+    }
+
+    75% {
+        background-color: #58c56f;
+    }
+}
+
+#myTab li:nth-child(3) a.nav-link {
+    background-color: #338ad1;
+    animation-name: nl3;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes nl3 {
+    0% {
+        background-color: #338ad1;
+    }
+
+    25% {
+        background-color: #ff5d8f;
+    }
+
+    50% {
+        background-color: #ffc400;
+    }
+
+    75% {
+        background-color: #58c56f;
+    }
+}
+
+#myTab li:nth-child(4) a.nav-link {
+    background-color: #58c56f;
+    animation-name: nl4;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes nl4 {
+    0% {
+        background-color: #58c56f;
+    }
+
+    25% {
+        background-color: #ffc400;
+    }
+
+    50% {
+        background-color: #ff5d8f;
+    }
+
+    75% {
+        background-color: #338ad1;
+    }
+}
+
+#bginfoabout {
+    width: 80%;
+    background-color: #f3f3f3;
+}
+
+#infoabout {
+    width: 80%;
+    overflow: hidden;
+    padding: 3rem 0rem 3rem 4rem;
+}
+
+#left_ul {
+    width: 155px;
+    float: left;
+}
+
+#left_ul ul {
+    list-style: none;
+    margin-bottom: 0;
+    font-size: 18px;
+}
+
+#right_ul {
+    width: 280px;
+    float: left;
+}
+
+#right_ul ul {
+    list-style: none;
+    margin-bottom: 0;
+    font-size: 18px;
+    color: #777;
+}
+
+#aboutlogo {
+    position: absolute;
+    top: 9rem;
+    right: 11rem;
+    border: 5px solid #bfe55e;
+    border-radius: 2.3rem 0 2.3rem 0;
+    cursor: pointer;
+    animation-name: melogo;
+    animation-duration: 5s;
+    animation-delay: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes melogo {
+    0% {
+        border: 5px solid #bfe55e;
+        border-radius: 2.3rem 0 2.3rem 0;
+    }
+
+    25% {
+        border: 5px solid red;
+        border-radius: 0rem 2.3rem 0 2.3rem;
+
+    }
+
+    50% {
+        border: 5px solid seagreen;
+        border-radius: 2.3rem 0 2.3rem 0;
+    }
+
+    75% {
+        border: 5px solid yellow;
+        border-radius: 0 2.3rem 0 2.3rem;
+    }
+}
+
+#aboutlogo img {
+    width: 8.8rem;
+    border: 5px solid #ff5d8f;
+    border-radius: 2rem 0 2rem 0;
+    animation-name: melogoi;
+    animation-duration: 5s;
+    animation-delay: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes melogoi {
+    0% {
+        border: 5px solid #ff5d8f;
+        border-radius: 2rem 0 2rem 0;
+    }
+
+    25% {
+        border: 5px solid yellow;
+        border-radius: 0rem 2rem 0 2rem;
+    }
+
+    50% {
+        border: 5px solid red;
+        border-radius: 2rem 0 2rem 0;
+    }
+
+    75% {
+        border: 5px solid seagreen;
+        border-radius: 0 2rem 0 2rem;
+    }
+}
+
+#aboutlogo:hover img {
+    border: 5px solid #ff5d8f;
+    border-radius: 0rem 2rem 0rem 2rem;
+}
+
+#describeEdu p {
+    color: rgb(144, 144, 144);
+}
+
+#colEditabout {
+    list-style: none;
+    padding-top: 3rem;
+}
+
+#colEditabout span {
+    padding-left: 2rem;
+}
+
+/* About me Aria Start Aria Start End  */
+/* counter down section area */
+.bgCounter_image {
+    height: 450px;
+    background: url(../images/counteblogo.png) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#counericon img {
+    display: block;
+    width: 32px;
+    margin: auto;
+}
+
+#coucounter span {
+    margin-top: 1rem;
+    font-size: 2.75rem;
+    color: #ff7806;
+    text-align: center;
+    display: block;
+}
+
+#counterText span {
+    display: block;
+    margin-top: 1.6rem;
+    font-family: Qlassik;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+
+}
+
+/* counter down section area end */
+/* service aria start */
+.subserimg {
+    width: 65px;
+    height: 100px;
+    background-color: #d4d4d4;
+}
+
+.subserimg span {
+    text-align: center;
+    padding-top: 24px;
+    display: block;
+    font-size: 32px;
+    color: #fff;
+}
+
+.subserTest {
+    width: 80%;
+    padding-left: 1rem;
+    font-family: Qlassik;
+}
+
+.subserTest h3 {
+    color: #ff5d8f;
+}
+
+.subserimgt {
+    width: 65px;
+    height: 100px;
+    background-color: #d4d4d4;
+}
+
+.subserimgt span {
+    text-align: center;
+    padding-top: 24px;
+    display: block;
+    font-size: 32px;
+    color: #fff;
+}
+
+.subTexttwo {
+    width: 85%;
+    font-family: Qlassik;
+}
+
+.subTexttwo h3 {
+    text-align: right;
+    color: #ff5d8f;
+}
+
+.subTexttwo {
+    text-align: right;
+}
+
+.serImg {
+    padding-left: 3rem;
+    margin-top: -5rem;
+}
+
+.serImg img {
+    width: 100%;
+}
+
+/* service aria start end */
+/* hireme area */
+.hiremeImage {
+    height: 180px;
+    background: url(../images/bannerRakib.png) no-repeat;
+    background-position: top center;
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+.someline {
+    padding-top: 4.5rem;
+}
+
+.someline h3 {
+    font-family: Qlassik;
+    font-size: 28px;
+    color: #fff;
+}
+
+.hMediv {
+    padding-top: 4.2rem;
+}
+
+.hMediv button {
+    display: inline-block;
+    padding: 10px 58px;
+    border-radius: 2rem;
+    background-color: #ff7806;
+    border: 2px solid #ff7806;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s all ease;
+    font-weight: bold;
+    font-family: Qlassik;
+}
+
+.hMediv button:hover {
+    background-color: transparent;
+    border: 2px solid #ff7806;
+    color: #ff7806;
+}
+
+/* hireme area end */
+/* Awesome work area */
+.workleftFpic {
+    height: 25rem;
+    background: url(../images/w1.jpg) no-repeat;
+    background-position: center right;
+    background-size: 80%;
+}
+
+.textworfirst {
+    width: 19rem;
+    position: absolute;
+    top: 7.3rem;
+    background-color: rgb(0, 0, 0, .3);
+    padding: .7rem 1.4rem;
+    border-radius: 5px;
+}
+
+.textworfirst h3 {
+    font-family: spirax;
+    color: #333;
+}
+
+.textworfirst span {
+    font-family: Qlassik;
+    color: #333;
+}
+
+.indivworkbutt {
+    display: block;
+    padding: 4px 30px;
+    border-radius: 2rem;
+    background-color: #ff7806;
+    border: 2px solid #ff7806;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s all ease;
+    font-family: Qlassik;
+    outline: none;
+}
+
+.indivworkbutt:hover {
+    background-color: #000;
+    border: 2px solid #000;
+    color: #fff;
+}
+
+.lastbgworkI {
+    height: 32rem;
+    background: url(../images/w2.jpg) no-repeat;
+    background-position: top center;
+    background-size: cover;
+}
+
+.moreEdit {
+    width: 94% !important;
+    position: absolute;
+    top: 33.3rem !important;
+    padding: 1.54rem 1.4rem !important;
+    border-radius: 0;
+}
+
+/* Awesome work area End */
+/* Testimonial area */
+.bgtestimonialI {
+    height: 600px;
+    background: url(../images/counteblogo.png) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.custesslider {
+    width: 70%;
+    margin: auto;
+}
+
+.custesslider h2 {
+    margin-bottom: 2rem;
+    color: #ff5d8f;
+}
+
+.custesslider span {
+    color: #fff;
+    font-family: Qlassik;
+    text-align: center;
+    display: block;
+}
+
+.custesslider img {
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    width: 90px;
+    border: 3px solid rebeccapurple;
+    border-radius: 5px;
+}
+
+.carousel-indicators {
+    bottom: -50px !important;
+}
+
+.carousel-indicators li {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    width: 17px;
+    height: 17px;
+}
+
+/* Testimonial area end */
+/* contact area */
+.nametype input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #DDD;
+    padding: 10px 15px;
+    outline: none;
+}
+
+/* contact area end */
+/* Social Contact Area */
+.social_bg_image {
+    background: url(../images/socialbanner.jpg) no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 200px;
+    background-attachment: fixed;
+}
+
+.cussocial {
+    padding-top: 1rem;
+}
+
+.cussocial ul {}
+
+.cussocial li {
+    width: 38px;
+    height: 38px;
+    margin-right: 2%;
+}
+
+.cussocial li a img {
+    width: 38px;
+}
+
+
+/* Social Contact Area end */
+/* google map area */
+.map_section_agile {
+    border: 7px solid #808080;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+.map_section_agile iframe {
+    width: 100%;
+    height: 20rem;
+}
+
+/* google map area end */

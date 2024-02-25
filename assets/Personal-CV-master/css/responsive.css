@@ -1,0 +1,52 @@
+/*This file make just responsive this page*/
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+	#baner_image_edit{
+		margin-top:4rem !important;
+	}	
+}
+@media only screen and (max-width: 1199px){
+	.lastbgworkI {
+		height: 27rem !important;
+	}
+	.moreEdit {
+		top: 29rem !important;
+	}
+	#bg_image {
+		background-size: 100% 125%;
+	}
+}
+@media only screen and (max-width: 991px) {
+    #bginfoabout{
+		width:100%;
+	}
+	#aboutlogo{
+		position: relative;
+		top: 2rem;
+		left: 6.5rem;
+		display: inline-block;
+	}
+	.resPositionOne{
+		top: 2.5rem !important;
+		left: 4rem !important;
+	}
+	.serImg{
+		margin-top:0;
+	}
+	.bgtestimonialI{
+		margin-top:13rem !important;
+	}
+}
+
+@media only screen and (max-width: 767px){
+	.bgCounter_image{
+		height:620px;
+	}
+	.hiremeImage{
+		height:300px;
+	}
+}
+@media only screen and (max-width: 375px){
+	.bgtestimonialI{
+		height: 660px;
+	}
+}
