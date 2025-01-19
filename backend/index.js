@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Import the cors middleware
-const Place = require('./model'); // Assuming you have a Place model defined
+const cors = require('cors');
+const Place = require('./model');  // Make sure the model is defined correctly
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/places', {
+// Connect to MongoDB Atlas
+mongoose.connect('mongodb+srv://harris:har123sam@cluster0.aui8cjn.mongodb.net/Travel', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -18,16 +18,17 @@ mongoose.connect('mongodb://localhost:27017/places', {
   console.error('MongoDB connection error:', error);
 });
 
-// Enable CORS middleware
-app.use(cors());
+// Enable CORS
+app.use(cors({ origin: '*' }));
 
-// Express route to fetch data from MongoDB
+// API endpoint to get all places from MongoDB
 app.get('/api/places', async (req, res) => {
   try {
-    const places = await Place.find({});
-    res.json(places);
+    const places = await Place.find({});  // Fetch all places from the collection
+    res.json(places);  // Return the places as JSON
+    console.log(places);  // Log the places to the console for debugging
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching places:', error);  // Log error if something goes wrong
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

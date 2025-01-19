@@ -9,6 +9,7 @@ const Attractions = ({ location }) => {
     "BlackHanSans": require("../assets/BlackHanSans-Regular.ttf")
   });
 
+  // Prevent the splash screen from hiding until fonts are loaded
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
@@ -16,12 +17,14 @@ const Attractions = ({ location }) => {
     prepare();
   }, []);
 
-  if (!fontsLoaded) {
-    return undefined;
-  } else {
-    SplashScreen.hideAsync();
-  }
+  // Once fonts are loaded, hide the splash screen
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
+  // Fetch attractions once location changes
   useEffect(() => {
     const fetchAttractions = async () => {
       try {
@@ -41,6 +44,10 @@ const Attractions = ({ location }) => {
     fetchAttractions();
   }, [location]);
 
+  if (!fontsLoaded) {
+    return null;  // Avoid rendering before fonts are loaded
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Attractions Nearby</Text>
@@ -58,8 +65,8 @@ const Attractions = ({ location }) => {
             <View style={styles.overlay}></View>
             <Text style={styles.attractionName}>{attraction.name}</Text>
             <TouchableOpacity style={styles.circleView}>
-          <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
-          </TouchableOpacity>
+              <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
+            </TouchableOpacity>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -70,7 +77,8 @@ const Attractions = ({ location }) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    top: 1010,
+    marginTop: 720,
+    position: 'absolute',
   },
   title: {
     fontFamily: "Candara",

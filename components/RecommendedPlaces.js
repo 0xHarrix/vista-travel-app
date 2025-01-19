@@ -25,7 +25,7 @@ const RecommendedPlaces = () => {
     async function fetchData() {
       try {
         await SplashScreen.preventAutoHideAsync();
-        const response = await fetch('http://192.168.1.40:5000/api/places');
+        const response = await fetch('http://192.168.1.41:3001/api/places');
         const data = await response.json();
         setPlaces(data);
         await SplashScreen.hideAsync();
@@ -37,7 +37,7 @@ const RecommendedPlaces = () => {
   }, []);
 
   if (!fontsLoaded || places.length === 0) {
-    return null; // Or a loading indicator
+    return null;
   }
 
   const scrollToNext = () => {
@@ -49,7 +49,7 @@ const RecommendedPlaces = () => {
   
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container3}>
         <Text style={styles.title}>Recommended Places</Text>
     <ScrollView horizontal ref={scrollViewRef}>
       {places.map(place => (
@@ -145,9 +145,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Candara',
     top: 9,
   },
-  container: {
-    position: "relative",
-    paddingVertical: 255,
+  container3: {
+    marginTop: 900,
   },
   title: {
     fontFamily: "Candara",

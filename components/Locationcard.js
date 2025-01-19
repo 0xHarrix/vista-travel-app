@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import * as SplashScreen from 'expo-splash-screen';
+import { opencageapi } from '../constants/constant';
 
 const LocationCard = ({ onLocationUpdate }) => {
   const [location, setLocation] = useState(null);
@@ -43,15 +44,13 @@ const LocationCard = ({ onLocationUpdate }) => {
   
     (async () => {
       try {
-        const response1 = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.coords.latitude}&lon=${location.coords.longitude}`);
+        const response1 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.coords.latitude},${location.coords.longitude}&key=`);
         const data1 = await response1.json();
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.coords.latitude},${location.coords.longitude}&radius=10000&type=tourist_attraction&rankby=prominence&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`);
         const data = await response.json();
-        if (data.results && data.results.length > 0) {
           const photoReference = data.results[0].photos[0].photo_reference;
           setCityImage(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`);
-          setCity(data1.address.state_district || data1.address.city);
-        }
+          setCity(data1.results[0].components.city);
       } catch (error) {
         console.error('Error fetching prominent place:', error);
       }
@@ -66,7 +65,7 @@ const LocationCard = ({ onLocationUpdate }) => {
   }, [fontsLoaded]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container2}>
       <Text style={styles.loc}>Currently In</Text>
       <TouchableOpacity style={styles.card}>
         {cityImage ? (
@@ -154,9 +153,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Candara',
     fontWeight: 'bold'
   },
-  container: {
+  container2: {
     position: 'absolute',
-    top: 250,
+    top: 260,
     width: '90%',
     height: 250,
   }
