@@ -10,13 +10,14 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { LinearGradient } from 'expo-linear-gradient';
 import HomeOptions from '../components/homeoptions';
-import Locationcard from '../components/Locationcard';
+import LocationCard from '../components/Locationcard';
 import Attractions from '../components/Attractions';
 import Card from '../components/mapcard';
 import RecommendedPlaces from '../components/RecommendedPlaces';
 import SearchBar from '../components/SearchBar';
 import Hotel from '../components/hotel';
 import Restaurant from '../components/Restaurant';
+import WeatherCard from '../components/WeatherCard';
 
 const { height } = Dimensions.get('window');
 
@@ -27,7 +28,6 @@ const Home = () => {
 
   const handleLocationUpdate = (locationData) => {
     setLocation(locationData);
-    console.log(locationData);
   };
 
 
@@ -40,7 +40,7 @@ const Home = () => {
     }
   };
 
-  const renderComponent = () => {
+  const renderActiveComponent = () => {
     if (activeTab === 'Attractions') {
       return <Attractions location={location} />;
     } else if (activeTab === 'Hotels') {
@@ -49,7 +49,6 @@ const Home = () => {
     else if (activeTab === 'Restaurant') {
       return <Restaurant city={location}/>;
     }
-    // You can add more conditions for other options if needed
   };
 
   const handleTabChange = (tabName) => {
@@ -59,15 +58,31 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.logo}>
-          <Image source={require("../assets/Vistalogo.png")} style={styles.logoImage} />
+        {/* Logo Section */}
+        <View style={styles.logoContainer}>
+          <Image source={require('../assets/Vistalogo.png')} style={styles.logoImage} />
         </View>
-        <SearchBar/>
-        <HomeOptions  onTabChange={handleTabChange} />
-        <Locationcard onLocationUpdate={handleLocationUpdate} />
-        {renderComponent()}
+
+        {/* Search Bar */}
+        <SearchBar />
+
+        {/* Home Options Tabs */}
+        <HomeOptions onTabChange={handleTabChange} />
+
+        {/* Location Card */}
+        <LocationCard onLocationUpdate={handleLocationUpdate} />
+
+        {/* Weather Card */}
+        <WeatherCard />
+
+        {/* Active Tab Content */}
+        {renderActiveComponent()}
+
+        {/* Recommended Places */}
         <RecommendedPlaces />
       </ScrollView>
+
+      {/* Bottom Tab Bar */}
       <Tabbar />
     </View>
   );
@@ -80,20 +95,16 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingBottom: height * 0.1, // Adjust the padding to accommodate Tabbar
+    paddingBottom: height * 0.1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  logo: {
-    position: 'absolute',
-    left: 16,
-    top: 40,
-    height: 44,
-    width: 59,
+  logoContainer: {
+    marginTop: 40,
+    marginBottom: 20,
   },
   logoImage: {
-    width: '100%',
-    height: '100%',
+    width: 59,
+    height: 44,
     resizeMode: 'contain',
   },
 });

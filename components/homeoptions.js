@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     position: 'absolute',
-    top: 130,
+    top: 150,
   },
   menuText1: {
     top: 10,

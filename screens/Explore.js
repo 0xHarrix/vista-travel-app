@@ -17,7 +17,7 @@ const Explore = () => {
 
   return (
     <View style={styles.container}>
-      <Hotels city="Chennai"/>
+      <Hotels city="Trichy"/>
       <Tabbar/>
     </View>
   );

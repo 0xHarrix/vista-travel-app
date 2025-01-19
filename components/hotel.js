@@ -65,7 +65,8 @@ const Hotel = ({ city }) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    top: 1010,
+    marginTop: 720,
+    position: 'absolute',
   },
   title: {
     fontFamily: "Candara",

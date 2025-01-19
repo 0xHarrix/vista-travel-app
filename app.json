@@ -23,6 +23,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": [
+        "android.permission.DETECT_SCREEN_CAPTURE"
+      ],
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes"

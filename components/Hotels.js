@@ -38,7 +38,7 @@ const HotelsInCity = ({ city }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container4}>
       <Text style={styles.title}>Hotels in {city}</Text>
       <ScrollView horizontal contentContainerStyle={styles.scrollView}>
         {hotels.map((hotel, index) => (
@@ -73,10 +73,10 @@ const HotelsInCity = ({ city }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 10,
+  container4: {
+    flexGrow: 1,
+    position: 'absolute',
+    marginTop: 720,
   },
   loadingContainer: {
     flex: 1,

@@ -1,9 +1,15 @@
-import React, {useState,useEffect} from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import MapView, {Marker,PROVIDER_GOOGLE} from "react-native-maps";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 export default function Map() {
   const [places, setPlaces] = useState([]);
+  const [region, setRegion] = useState({
+    latitude: 10.8505, // Default latitude
+    longitude: 106.8283, // Default longitude
+    latitudeDelta: 40,
+    longitudeDelta: 40,
+  });
 
   useEffect(() => {
     fetchPlaces();
@@ -11,9 +17,41 @@ export default function Map() {
 
   const fetchPlaces = async () => {
     try {
-      const response = await fetch('http://192.168.1.40:5000/api/places');
+      const response = await fetch('http://192.168.1.41:3001/api/places');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       setPlaces(data);
+      console.log('Fetched places:', data);
+
+      // Adjust region based on fetched places' coordinates
+      if (data.length > 0) {
+        const latitudes = data.map(place => parseFloat(place.latitude));
+        const longitudes = data.map(place => parseFloat(place.longitude));
+
+        const minLat = Math.min(...latitudes);
+        const maxLat = Math.max(...latitudes);
+        const minLon = Math.min(...longitudes);
+        const maxLon = Math.max(...longitudes);
+
+        const latitudeDelta = maxLat - minLat;
+        const longitudeDelta = maxLon - minLon;
+
+        setRegion({
+          latitude: (maxLat + minLat) / 2,
+          longitude: (maxLon + minLon) / 2,
+          latitudeDelta,
+          longitudeDelta,
+        });
+
+        console.log('Updated region:', {
+          latitude: (maxLat + minLat) / 2,
+          longitude: (maxLon + minLon) / 2,
+          latitudeDelta,
+          longitudeDelta,
+        });
+      }
     } catch (error) {
       console.error('Error fetching places:', error);
     }
@@ -24,12 +62,7 @@ export default function Map() {
       <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}
-        initialRegion={{
-          latitude: 10.8505, // Default latitude
-          longitude: 106.8283, // Default longitude
-          latitudeDelta: 40,
-          longitudeDelta: 40,
-        }}
+        initialRegion={region}
         customMapStyle={customMapStyle}
       >
         {places.map(place => (
@@ -45,7 +78,7 @@ export default function Map() {
       </MapView>
     </View>
   );
-};
+}
 
 // Create our styling code:
 const styles = StyleSheet.create({
