@@ -17,6 +17,7 @@ import OnboardingScreen1 from './screens/OnboardingScreen1';
 import OnboardingScreen2 from './screens/OnboardingScreen2';
 import OnboardingScreen3 from './screens/OnboardingScreen3';
 import Forgot from './screens/forgot';
+import PlaceDetails from './screens/PlaceDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -82,6 +83,7 @@ export default function App() {
                 <Stack.Screen name="Notifications" component={Notifications} />
                 <Stack.Screen name="Globe" component={Globe} />
                 <Stack.Screen name="Profile" component={Profile} />
+                <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
               </>
             )}
           </>

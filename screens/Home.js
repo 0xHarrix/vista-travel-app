@@ -42,12 +42,12 @@ const Home = () => {
 
   const renderActiveComponent = () => {
     if (activeTab === 'Attractions') {
-      return <Attractions location={location} />;
+      return <Attractions location={location}/>;
     } else if (activeTab === 'Hotels') {
       return <Hotel city={location}/>;
     }
     else if (activeTab === 'Restaurant') {
-      return <Restaurant city={location}/>;
+      return <Restaurant city={location} isCurrentLocation={true} />;
     }
   };
 

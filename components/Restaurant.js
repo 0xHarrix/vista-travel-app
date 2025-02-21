@@ -4,17 +4,24 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { googleapis } from '../constants/constant'; 
 
-const Restaurant = ({ city }) => {
+const Restaurant = ({ latitude, longitude, city, isCurrentLocation, loc }) => {
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchRestaurantsInCity = async () => {
         try {
-            const { latitude, longitude } = city.coords;
-            const response = await fetch(
-              `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=45000&type=restaurant&rankby=prominence&key=${googleapis}`
-            )
+          let lat = latitude;
+          let long = longitude;
+      
+          if (city?.coords) {
+            lat = city.coords.latitude;
+            long = city.coords.longitude;
+          }
+      
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=45000&type=restaurant&rankby=prominence&key=${googleapis}`
+          );
           const data = await response.json();
     
           // Sort the restaurants based on their ratings in descending order
@@ -34,7 +41,10 @@ const Restaurant = ({ city }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Restaurants Nearby</Text>
+      {isCurrentLocation ? (
+      <Text style={styles.title}>Restaurants Nearby</Text>) : (
+      <Text style={styles.title}>Restaurants in {loc}</Text>)
+    }
       <ScrollView horizontal contentContainerStyle={styles.attractionsContainer}>
       {restaurants.map((restaurant, index) => (
           <TouchableOpacity key={index} style={styles.attractionCard}>
