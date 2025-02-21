@@ -17,10 +17,7 @@ export default function Map() {
 
   const fetchPlaces = async () => {
     try {
-      const response = await fetch('http://192.168.231.4:3001/api/places');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      const response = await fetch('http://192.168.1.40:5000/api/places');
       const data = await response.json();
       setPlaces(data);
       console.log('Fetched places:', data);

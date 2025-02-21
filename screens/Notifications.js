@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { firebase_auth } from '../FirebaseAuth';
 import Tabbar from '../components/Tabbar';
-import WeatherCard from '../components/WeatherCard';
 
 const Notifications = () => {
   const handleLogout = async () => {
@@ -17,7 +16,6 @@ const Notifications = () => {
   return (
     <View style={styles.container}>
       <Text>Notifications</Text>
-      <WeatherCard/>
       <Tabbar/>
     </View>
   );

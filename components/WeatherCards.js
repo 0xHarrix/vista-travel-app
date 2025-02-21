@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { weatherapi } from '../constants/constant';
 
-const WeatherCard = () => {
+const WeatherCards = () => {
   const [location, setLocation] = useState(null);
   const [city, setCity] = useState(null);
   const [celtemperature, setCeltemperature] = useState(null);
@@ -234,4 +234,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WeatherCard;
+export default WeatherCards;

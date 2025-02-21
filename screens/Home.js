@@ -17,7 +17,7 @@ import RecommendedPlaces from '../components/RecommendedPlaces';
 import SearchBar from '../components/SearchBar';
 import Hotel from '../components/hotel';
 import Restaurant from '../components/Restaurant';
-import WeatherCard from '../components/WeatherCard';
+import WeatherCards from '../components/WeatherCards';
 
 const { height } = Dimensions.get('window');
 
@@ -73,7 +73,7 @@ const Home = () => {
         <LocationCard onLocationUpdate={handleLocationUpdate} />
 
         {/* Weather Card */}
-        <WeatherCard />
+        <WeatherCards />
 
         {/* Active Tab Content */}
         {renderActiveComponent()}
