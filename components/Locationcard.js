@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
-import * as Location from 'expo-location';
 import axios from 'axios';
 import * as SplashScreen from 'expo-splash-screen';
 import { opencageapi, googleapis } from '../constants/constant';
+import { useNavigation, useRoute, useIsFocused } from "@react-navigation/native";
 
-const LocationCard = ({ onLocationUpdate }) => {
-  const [location, setLocation] = useState(null);
+
+
+const LocationCard = ({ location }) => { // Receive location as prop
   const [city, setCity] = useState(null);
   const [cityImage, setCityImage] = useState(null);
+  const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     "BlackHanSans": require("../assets/BlackHanSans-Regular.ttf"),
     "Candara": require("../assets/Candara.ttf")
@@ -23,46 +25,34 @@ const LocationCard = ({ onLocationUpdate }) => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        return;
-      }
-
-      try {
-        let location = await Location.getCurrentPositionAsync({})
-        setLocation(location);
-        onLocationUpdate(location); // Send location data to the parent component
-      } catch (error) {
-        console.error('Error fetching location:', error);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
     if (!location) return;
-  
+
     (async () => {
       try {
-        const response1 = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location.coords.latitude},${location.coords.longitude}&key=${opencageapi}`);
-        const data1 = await response1.json();
-        const response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.coords.latitude},${location.coords.longitude}&radius=10000&type=tourist_attraction&rankby=prominence&key=${googleapis}`);
-        const data = await response.json();
-          const photoReference = data.results[0].photos[0].photo_reference;
-          setCityImage(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${googleapis}`);
-          setCity(data1.results[0].components.city);
+        const response1 = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location.lat},${location.lng}&key=${opencageapi}`);
+        const response2 = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=10000&type=tourist_attraction&rankby=prominence&key=${googleapis}`);        
+
+        if (response2.data.results.length > 0) {
+          const photoReference = response2.data.results[0].photos?.[0]?.photo_reference;
+          setCityImage(photoReference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${googleapis}` : null);
+        }
+
+        setCity(response1.data.results[0].components.city);
       } catch (error) {
-        console.error('Error fetching prominent place:', error);
+        console.error('Error fetching city data:', error);
       }
     })();
   }, [location]);
-  
 
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  const redirectToChangeLocation = () => {
+    navigation.navigate('ChangeLocation');
+  }
 
   return (
     <View style={styles.container2}>
@@ -74,12 +64,11 @@ const LocationCard = ({ onLocationUpdate }) => {
           <Image source={require("../assets/travel-to-islands1.png")} style={styles.cityImage} />
         )}
         <View style={styles.overlay} />
-        {city && (
-          <Text style={styles.cityText}>{city}</Text>
-        )}
+        {city && <Text style={styles.cityText}>{city}</Text>}
         <Text style={styles.cityText2}>24 Locations</Text>
-        <TouchableOpacity style={styles.changeLocation}><Image source={require("../assets/Edit.png")} style={styles.editicon} />
-        <Text style={styles.changelocationText}>Change Location</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.changeLocation}>
+          <Text style={styles.changelocationText} onPress={redirectToChangeLocation}>Change Location</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.circleView}>
           <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
         </TouchableOpacity>
@@ -89,6 +78,7 @@ const LocationCard = ({ onLocationUpdate }) => {
 }
 
 export default LocationCard;
+
 
 const styles = StyleSheet.create({
   card: {
@@ -172,13 +162,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    width: 150,
   },
   changelocationText: {
     color: '#2dbd6e',
     fontFamily: 'Candara',
     fontWeight: 'bold',
-    marginLeft: 20
   },
   editicon: {
     width: 20,

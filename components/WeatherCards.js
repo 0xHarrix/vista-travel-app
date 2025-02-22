@@ -5,133 +5,83 @@ import * as SplashScreen from 'expo-splash-screen';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { weatherapi } from '../constants/constant';
 
-const WeatherCards = () => {
-  const [location, setLocation] = useState(null);
+const WeatherCards = ({ location }) => {
   const [city, setCity] = useState(null);
   const [celtemperature, setCeltemperature] = useState(null);
   const [fartemperature, setFartemperature] = useState(null);
   const [condition, setCondition] = useState(null);
   const [humidity, setHumidity] = useState(null);
   const [isCelsius, setIsCelsius] = useState(true);
-  const [fontsLoaded] = useFonts({
-    BlackHanSans: require('../assets/BlackHanSans-Regular.ttf'),
-    Candara: require('../assets/Candara.ttf'),
-  });
 
   useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
+    if (location) {
+      fetchWeatherData();
     }
-    prepare();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        return;
-      }
-
-      try {
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-      } catch (error) {
-        console.error('Error fetching location:', error);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    const fetchWeatherData = async () => {
-      try {
-        if (location) {
-          const { latitude, longitude } = location.coords;
-          const response = await fetch(
-            `https://api.weatherapi.com/v1/current.json?key=${weatherapi}&q=${latitude},${longitude}`
-          );
-          const weatherdata = await response.json();
-          setCity(weatherdata.location.name);
-          setCeltemperature(Math.round(weatherdata.current.temp_c));
-          setFartemperature(Math.round(weatherdata.current.temp_f));
-          setCondition(weatherdata.current.condition.text);
-          setHumidity(weatherdata.current.humidity);
-        }
-      } catch (error) {
-        console.error('Error fetching weather data:', error);
-      }
-    };
-
-    fetchWeatherData();
   }, [location]);
+
+  const fetchWeatherData = async () => {
+    try {
+      const response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=${weatherapi}&q=${location.lat},${location.lng}`
+      );
+      const weatherdata = await response.json();
+      setCity(weatherdata.location.name);
+      setCeltemperature(Math.round(weatherdata.current.temp_c));
+      setFartemperature(Math.round(weatherdata.current.temp_f));
+      setCondition(weatherdata.current.condition.text);
+      setHumidity(weatherdata.current.humidity);
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+    }
+  };
 
   const handleToggleTemp = () => {
     setIsCelsius(!isCelsius);
   };
 
   const getWeatherImage = (condition) => {
-    if (
-      condition === "Patchy rain possible" ||
-      condition === "Patchy light drizzle" ||
-      condition === "Light drizzle" ||
-      condition === "Freezing drizzle" ||
-      condition === "Heavy freezing drizzle" ||
-      condition === "Patchy light rain" ||
-      condition === "Light rain" ||
-      condition === "Moderate rain at times" ||
-      condition === "Moderate rain" ||
-      condition === "Heavy rain at times" ||
-      condition === "Heavy rain" ||
-      condition === "Light freezing rain" ||
-      condition === "Moderate or heavy freezing rain" ||
-      condition === "Light rain shower" ||
-      condition === "Moderate or heavy rain shower" ||
-      condition === "Torrential rain shower" ||
-      condition === "Patchy light rain with thunder" ||
-      condition === "Moderate or heavy rain with thunder"
-    ) {
-      return require('../assets/Rainy.png'); // Replace with the path to your rainy image
-    } else if (
-      condition === "Sunny" ||
-      condition === "Clear"
-    ) {
-      return require('../assets/sunny.png'); // Replace with the path to your sunny image
-    } else if (
-      condition === "Partly cloudy"
-    ) {
-      return require('../assets/sunny-cloudy.png'); // Replace with the path to your cloudy-sunny image
-    } else if (
-      condition === "Cloudy" ||
-      condition === "Overcast" ||
-      condition === "Mist" ||
-      condition === "Freezing fog" ||
-      condition === "Fog"
-    ) {
-      return require('../assets/Cloudy.png'); // Replace with the path to your cloudy image
-    } else if (
-      condition === "Patchy snow possible" ||
-      condition === "Light snow" ||
-      condition === "Patchy light snow" ||
-      condition === "Moderate snow" ||
-      condition === "Patchy moderate snow" ||
-      condition === "Heavy snow" ||
-      condition === "Patchy heavy snow" ||
-      condition === "Blowing snow" ||
-      condition === "Blizzard" ||
-      condition === "Ice pellets" ||
-      condition === "Light sleet" ||
-      condition === "Moderate or heavy sleet" ||
-      condition === "Light sleet showers" ||
-      condition === "Moderate or heavy sleet showers" ||
-      condition === "Light snow showers" ||
-      condition === "Moderate or heavy snow showers" ||
-      condition === "Light showers of ice pellets" ||
-      condition === "Moderate or heavy showers of ice pellets" ||
-      condition === "Patchy light snow with thunder" ||
-      condition === "Moderate or heavy snow with thunder"
-    ) {
-      return require('../assets/snowy.png'); // Replace with the path to your snowy image
+    const lowerCaseCondition = condition.toLowerCase(); // Normalize case for comparison
+  
+    const rainyConditions = [
+      "patchy rain possible", "patchy light drizzle", "light drizzle", "freezing drizzle",
+      "heavy freezing drizzle", "patchy light rain", "light rain", "moderate rain at times",
+      "moderate rain", "heavy rain at times", "heavy rain", "light freezing rain",
+      "moderate or heavy freezing rain", "light rain shower", "moderate or heavy rain shower",
+      "torrential rain shower", "patchy light rain with thunder", "moderate or heavy rain with thunder",
+      "rain", "drizzle", "shower"
+    ];
+  
+    const sunnyConditions = ["sunny", "clear", "sun"];
+  
+    const partlyCloudyConditions = ["partly cloudy", "partly sunny", "partly clear"];
+  
+    const cloudyConditions = [
+      "cloudy", "overcast", "mist", "freezing fog", "fog", "hazy", "haze", "smoky", "smog"
+    ];
+  
+    const snowyConditions = [
+      "patchy snow possible", "light snow", "patchy light snow", "moderate snow",
+      "patchy moderate snow", "heavy snow", "patchy heavy snow", "blowing snow",
+      "blizzard", "ice pellets", "light sleet", "moderate or heavy sleet",
+      "light sleet showers", "moderate or heavy sleet showers", "light snow showers",
+      "moderate or heavy snow showers", "light showers of ice pellets",
+      "moderate or heavy showers of ice pellets", "patchy light snow with thunder",
+      "moderate or heavy snow with thunder", "snow", "sleet", "ice"
+    ];
+  
+    if (rainyConditions.some((c) => lowerCaseCondition.includes(c))) {
+      return require("../assets/Rainy.png");
+    } else if (sunnyConditions.some((c) => lowerCaseCondition.includes(c))) {
+      return require("../assets/sunny.png");
+    } else if (partlyCloudyConditions.some((c) => lowerCaseCondition.includes(c))) {
+      return require("../assets/sunny-cloudy.png");
+    } else if (cloudyConditions.some((c) => lowerCaseCondition.includes(c))) {
+      return require("../assets/Cloudy.png");
+    } else if (snowyConditions.some((c) => lowerCaseCondition.includes(c))) {
+      return require("../assets/snowy.png");
     }
-  };
+    };
+  
   
 
 

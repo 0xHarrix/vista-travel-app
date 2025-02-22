@@ -43,7 +43,7 @@ export default function PlaceDetails({ route }) {
               <Hotel latitude={latitude} longitude={longitude} isCurrentLocation={false} loc={location}/>
             </View>
             <View style={styles.attraction}>
-              <Attractions latitude={latitude} longitude={longitude} isCurrentLocation={false} loc={location}/>
+              <Attractions latitude={latitude} longitude={longitude} isCurrentLocation={false} city={location}/>
             </View>
           </View>
       <Tabbar/>

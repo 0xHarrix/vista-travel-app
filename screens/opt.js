@@ -7,7 +7,7 @@ const Otp = () => {
 
   const handleGenerateOTP = async () => {
     try {
-      await axios.post('http://192.168.1.53:3000/generate-otp', { phoneNumber });
+      await axios.post('http://192.168.1.53:3001/generate-otp', { phoneNumber });
       alert('OTP generated successfully. Check your phone for the OTP.');
     } catch (error) {
       alert('Failed to generate OTP. Please try again.');

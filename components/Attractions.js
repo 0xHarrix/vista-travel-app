@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen'; 
+import * as SplashScreen from 'expo-splash-screen';
+import { googleapis } from '../constants/constant';
 
-const Attractions = ({latitude, longitude, city, isCurrentLocation, loc }) => {
+const Attractions = ({ latitude, longitude, city, isCurrentLocation, loc }) => {
   const [attractions, setAttractions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [fontsLoaded] = useFonts({
-    "BlackHanSans": require("../assets/BlackHanSans-Regular.ttf")
+    "BlackHanSans": require("../assets/BlackHanSans-Regular.ttf"),
   });
 
-  // Prevent the splash screen from hiding until fonts are loaded
+  // Prevent splash screen from hiding until fonts are loaded
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
@@ -17,67 +20,94 @@ const Attractions = ({latitude, longitude, city, isCurrentLocation, loc }) => {
     prepare();
   }, []);
 
-  // Once fonts are loaded, hide the splash screen
+  // Hide splash screen when fonts are loaded
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
-  // Fetch attractions once location changes
+  // Fetch attractions when location changes
   useEffect(() => {
     const fetchAttractions = async () => {
+      if (!latitude || !longitude) {
+        console.error("🚨 Missing latitude or longitude!", { latitude, longitude, loc });
+        return;
+      }      
+
+      setLoading(true);
+      let lat = latitude;
+      let long = longitude;
+
+      if (isCurrentLocation && loc) {
+        lat = loc.lat;
+        long = loc.lng;
+      }
+
       try {
-        let lat = latitude;
-        let long = longitude;
-    
-        if (city?.coords) {
-          lat = city.coords.latitude;
-          long = city.coords.longitude;
-          isCurrentLocation = true;
-        }
-          const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=45000&type=tourist_attraction&rankby=prominence&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`
-          );
-          const data = await response.json();
+        const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=100000&type=tourist_attraction&keyword=landmark|popular attractions|heritage|famous places&key=${googleapis}`;
+        console.log(`🌍 Fetching attractions from: ${url}`);
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        console.log("📌 API Response:", JSON.stringify(data, null, 2));
+
+        if (data.results && data.results.length > 0) {
+
           setAttractions(data.results);
+        } else {
+          console.log("📡 API Response:", JSON.stringify(data, null, 2));
+          console.warn("⚠️ No attractions found!");
+          setAttractions([]);
+        }
       } catch (error) {
-        console.error('Error fetching attractions:', error);
+        console.error("❌ Error fetching attractions:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchAttractions();
-  }, [city]);
+  }, [latitude, longitude, city]);
 
   if (!fontsLoaded) {
-    return null;  // Avoid rendering before fonts are loaded
+    return null;
   }
 
   return (
     <View style={styles.container}>
-            {isCurrentLocation ? (
-            <Text style={styles.title}>Attractions Nearby</Text>) : (
-            <Text style={styles.title}>Attractions in {loc}</Text>)
-          }
-      <ScrollView horizontal contentContainerStyle={styles.attractionsContainer}>
-        {attractions.map((attraction, index) => (
-          <TouchableOpacity key={index} style={styles.attractionCard}>
-            {attraction.photos && attraction.photos.length > 0 && (
-              <Image
-                source={{
-                  uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${attraction.photos[0].photo_reference}&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`,
-                }}
-                style={styles.attractionImage}
-              />
-            )}
-            <View style={styles.overlay}></View>
-            <Text style={styles.attractionName}>{attraction.name}</Text>
-            <TouchableOpacity style={styles.circleView}>
-              <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
+      <Text style={styles.title}>
+        {isCurrentLocation ? "Attractions Nearby" : `Attractions in ${city}`}
+      </Text>
+
+      {loading ? (
+        <Text style={styles.loadingText}>Loading attractions...</Text>
+      ) : attractions.length === 0 ? (
+        <Text style={styles.noAttractionsText}>No attractions found.</Text>
+      ) : (
+        <ScrollView horizontal contentContainerStyle={styles.attractionsContainer}>
+          {attractions.map((attraction, index) => (
+            <TouchableOpacity key={index} style={styles.attractionCard}>
+              {attraction.photos && attraction.photos.length > 0 ? (
+                <Image
+                  source={{
+                    uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${attraction.photos[0].photo_reference}&key=${googleapis}`,
+                  }}
+                  style={styles.attractionImage}
+                />
+              ) : (
+                <Text>No Image</Text>
+              )}
+              <View style={styles.overlay} />
+              <Text style={styles.attractionName}>{attraction.name}</Text>
+              <TouchableOpacity style={styles.circleView}>
+                <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
+              </TouchableOpacity>
             </TouchableOpacity>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -94,6 +124,17 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginBottom: 5,
     marginLeft: 20,
+  },
+  loadingText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  noAttractionsText: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: 'red',
+    marginTop: 20,
   },
   attractionsContainer: {
     flexDirection: 'row',
@@ -130,7 +171,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     fontFamily: 'BlackHanSans',
-    width: '80%'
+    width: '80%',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
