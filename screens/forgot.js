@@ -8,7 +8,7 @@ const Forgot = ({ navigation }) => {
 
   const handleSendOTP = async () => {
     try {
-      const response = await fetch('http://192.168.231.4:3001/send-otp', {
+      const response = await fetch('http://192.168.1.53:3001/send-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

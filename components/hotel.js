@@ -4,16 +4,23 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { googleapis } from '../constants/constant'; 
 
-const Hotel = ({ city }) => {
+const Hotel = ({ latitude, longitude, city, isCurrentLocation, loc }) => {
     const [hotels, setHotels] = useState([]);
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
       const fetchHotelsInCity = async () => {
         try {
-        const { latitude, longitude } = city.coords;
+          let lat = latitude;
+          let long = longitude;
+      
+          if (city?.coords) {
+            lat = city.coords.latitude;
+            long = city.coords.longitude;
+            isCurrentLocation = true;
+          }
           const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=45000&type=lodging&rankby=prominence&key=${googleapis}`
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=45000&type=lodging&rankby=prominence&key=${googleapis}`
           );
           const data = await response.json();
     
@@ -31,7 +38,10 @@ const Hotel = ({ city }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hotels Nearby</Text>
+            {isCurrentLocation ? (
+            <Text style={styles.title}>Hotels Nearby</Text>) : (
+            <Text style={styles.title}>Hotels in {loc}</Text>)
+          }
       <ScrollView horizontal contentContainerStyle={styles.attractionsContainer}>
       {hotels.map((hotel, index) => (
           <TouchableOpacity key={index} style={styles.attractionCard}>

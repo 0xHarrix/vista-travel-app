@@ -78,6 +78,8 @@ const LocationCard = ({ onLocationUpdate }) => {
           <Text style={styles.cityText}>{city}</Text>
         )}
         <Text style={styles.cityText2}>24 Locations</Text>
+        <TouchableOpacity style={styles.changeLocation}><Image source={require("../assets/Edit.png")} style={styles.editicon} />
+        <Text style={styles.changelocationText}>Change Location</Text></TouchableOpacity>
         <TouchableOpacity style={styles.circleView}>
           <Image source={require("../assets/Arrow.png")} style={styles.arrow} />
         </TouchableOpacity>
@@ -158,5 +160,31 @@ const styles = StyleSheet.create({
     top: 260,
     width: '90%',
     height: 250,
-  }
+  },
+  changeLocation: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+    fontFamily: 'Candara',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 150,
+  },
+  changelocationText: {
+    color: '#2dbd6e',
+    fontFamily: 'Candara',
+    fontWeight: 'bold',
+    marginLeft: 20
+  },
+  editicon: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+    position: 'absolute',
+    left: 10,
+  },
 });

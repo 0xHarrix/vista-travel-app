@@ -33,7 +33,7 @@ const RecommendedPlaces = () => {
     async function fetchData() {
       try {
         await SplashScreen.preventAutoHideAsync();
-        const response = await fetch("http://192.168.231.4:3001/api/places");
+        const response = await fetch("http://192.168.1.53:3001/api/places");
         const data = await response.json();
         setPlaces(data);
         await SplashScreen.hideAsync();

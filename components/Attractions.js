@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity } from 'rea
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'; 
 
-const Attractions = ({ location }) => {
+const Attractions = ({latitude, longitude, city, isCurrentLocation, loc }) => {
   const [attractions, setAttractions] = useState([]);
   const [fontsLoaded] = useFonts({
     "BlackHanSans": require("../assets/BlackHanSans-Regular.ttf")
@@ -28,21 +28,26 @@ const Attractions = ({ location }) => {
   useEffect(() => {
     const fetchAttractions = async () => {
       try {
-        if (location) {
-          const { latitude, longitude } = location.coords;
+        let lat = latitude;
+        let long = longitude;
+    
+        if (city?.coords) {
+          lat = city.coords.latitude;
+          long = city.coords.longitude;
+          isCurrentLocation = true;
+        }
           const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=45000&type=tourist_attraction&rankby=prominence&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&radius=45000&type=tourist_attraction&rankby=prominence&key=AIzaSyA0E_xu1VBpJ7gxVvfZ8bMXqmNe3advwes`
           );
           const data = await response.json();
           setAttractions(data.results);
-        }
       } catch (error) {
         console.error('Error fetching attractions:', error);
       }
     };
 
     fetchAttractions();
-  }, [location]);
+  }, [city]);
 
   if (!fontsLoaded) {
     return null;  // Avoid rendering before fonts are loaded
@@ -50,7 +55,10 @@ const Attractions = ({ location }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Attractions Nearby</Text>
+            {isCurrentLocation ? (
+            <Text style={styles.title}>Attractions Nearby</Text>) : (
+            <Text style={styles.title}>Attractions in {loc}</Text>)
+          }
       <ScrollView horizontal contentContainerStyle={styles.attractionsContainer}>
         {attractions.map((attraction, index) => (
           <TouchableOpacity key={index} style={styles.attractionCard}>

@@ -42,9 +42,9 @@ const Home = () => {
 
   const renderActiveComponent = () => {
     if (activeTab === 'Attractions') {
-      return <Attractions location={location}/>;
+      return <Attractions city={location} isCurrentLocation={true}/>;
     } else if (activeTab === 'Hotels') {
-      return <Hotel city={location}/>;
+      return <Hotel city={location} isCurrentLocation={true}/>;
     }
     else if (activeTab === 'Restaurant') {
       return <Restaurant city={location} isCurrentLocation={true} />;
