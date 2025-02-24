@@ -9,7 +9,7 @@ const WeatherCards = ({ location }) => {
   const [city, setCity] = useState(null);
   const [celtemperature, setCeltemperature] = useState(null);
   const [fartemperature, setFartemperature] = useState(null);
-  const [condition, setCondition] = useState(null);
+  const [condition, setCondition] = useState("Loading..."); // Default text instead of null
   const [humidity, setHumidity] = useState(null);
   const [isCelsius, setIsCelsius] = useState(true);
 

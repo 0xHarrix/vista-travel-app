@@ -29,15 +29,19 @@ const LocationCard = ({ location }) => { // Receive location as prop
 
     (async () => {
       try {
-        const response1 = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location.lat},${location.lng}&key=${opencageapi}`);
+        const response1 = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${googleapis}`);
         const response2 = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=10000&type=tourist_attraction&rankby=prominence&key=${googleapis}`);        
-
+        const cityName = response1.data.results[0].address_components.find(component => 
+          component.types.includes("administrative_area_level_3") || 
+          component.types.includes("administrative_area_level_2") || 
+          component.types.includes("locality")
+      )?.long_name;
         if (response2.data.results.length > 0) {
           const photoReference = response2.data.results[0].photos?.[0]?.photo_reference;
           setCityImage(photoReference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${googleapis}` : null);
         }
 
-        setCity(response1.data.results[0].components.city);
+        setCity(cityName);
       } catch (error) {
         console.error('Error fetching city data:', error);
       }

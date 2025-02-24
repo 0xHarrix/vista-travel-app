@@ -56,7 +56,7 @@ const RecommendedPlaces = () => {
   };
 
   const routetoPlace = (place) => {
-    navigation.navigate('PlaceDetails', {
+    navigation.navigate('PlaceGo', {
       placeid: place.id,
       place: place.place,
       locationimage: place.imageUrl,
